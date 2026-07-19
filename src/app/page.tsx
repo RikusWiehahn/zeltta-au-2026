@@ -2,8 +2,9 @@ import Image from "next/image";
 import EmailReveal from "./EmailReveal";
 
 /*
-	PLACEHOLDERS TO FILL BEFORE LAUNCH (all marked with dashed blue outlines on the page):
-	1. Hero testimonial — client photo, name, company, and quote
+	TO ADD ONCE AVAILABLE:
+	1. Hero testimonial — client photo, name, company, and quote. Removed for launch (no AU clients yet);
+	   the card's markup lives in mockup.html under "PLACEHOLDER: hero testimonial".
 	(Phone mockup is done: a white-label dashboard with plain demo data, Fire Protection Co. Swap for a real screenshot if one becomes available.)
 	(Founder's note photo is done. Contact details are done: the phone number is shown openly in the header, final CTA, sticky mobile bar and footer;
 	the email stays click-to-reveal via the EmailReveal component to keep it away from scraper bots.
@@ -46,10 +47,6 @@ const ChevronIcon = () => (
 	>
 		<path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
 	</svg>
-);
-
-const Placeholder = (props: { children: React.ReactNode }) => (
-	<span className="rounded border border-dashed border-sky-400 bg-sky-50 px-1 text-sky-700">{props.children}</span>
 );
 
 const Page = () => {
@@ -168,22 +165,6 @@ const Page = () => {
 								</div>
 							</div>
 							<p className="-mt-3 text-center text-xs text-stone-500">Example</p>
-
-							{/* PLACEHOLDER: hero testimonial — fill in photo, quote, name and company */}
-							<figure className="w-full max-w-md rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
-								<div className="flex items-start gap-4">
-									<div className="flex h-14 w-14 flex-none items-center justify-center rounded-full border-2 border-dashed border-sky-400 bg-sky-50 text-center text-[10px] font-semibold leading-tight text-sky-700">[Photo]</div>
-									<div>
-										<blockquote className="text-sm leading-relaxed text-stone-700">
-											<Placeholder>[Client quote — two sentences on what changed after the build, in their own words.]</Placeholder>
-										</blockquote>
-										<figcaption className="mt-3 text-sm">
-											<span className="font-semibold text-stone-900"><Placeholder>[Client name]</Placeholder></span>
-											<span className="text-stone-500"> · <Placeholder>[Company, NZ]</Placeholder></span>
-										</figcaption>
-									</div>
-								</div>
-							</figure>
 						</div>
 					</div>
 				</section>
