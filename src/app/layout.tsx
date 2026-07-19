@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -37,7 +38,10 @@ export const viewport: Viewport = {
 const RootLayout = (props: { children: React.ReactNode }) => {
 	return (
 		<html lang="en" className={inter.variable}>
-			<body className="bg-stone-50 font-sans text-stone-800 antialiased">{props.children}</body>
+			<body className="bg-stone-50 font-sans text-stone-800 antialiased">
+				{props.children}
+				<Analytics />
+			</body>
 		</html>
 	);
 };
