@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme inline {
+	--font-sans: var(--font-inter);
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+details > summary {
+	list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+	display: none;
+}
+
+details[open] .faq-chevron {
+	transform: rotate(180deg);
+}
