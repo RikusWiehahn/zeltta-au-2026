@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef } from "react";
 import {
 	BatteryFull,
 	BatteryWarning,
@@ -21,34 +24,35 @@ import {
 	White-label dashboard mockup with deliberately plain demo data (Fire Protection Co.):
 	an AS 1851 testing round with defect flags and an auto-generated compliance report —
 	the kind of deliverable off-the-shelf apps can't do.
-	Interactive for the fun of it: the list scrolls and every control has a press state,
-	but it's all CSS — nothing navigates anywhere.
+	Interactive for the fun of it: the list scrolls (wheel, touch, or mouse drag) and
+	every control has a press state, but nothing navigates anywhere.
 */
 
+// AS 1851 splits defects into critical and non-critical — real trade language.
 const defects = [
 	{
 		icon: FireExtinguisher,
 		title: "Extinguisher L2-04",
 		fault: "Low pressure",
-		meta: "Replace now · AS 1851",
+		meta: "Recharge or replace",
 		photos: 2,
 		severity: "critical",
 	},
 	{
 		icon: BatteryWarning,
 		title: "Exit light G-11",
-		fault: "Battery failed",
-		meta: "90-min discharge test",
+		fault: "Discharge test failed",
+		meta: "Replace battery",
 		photos: 1,
 		severity: "critical",
 	},
 	{
 		icon: Droplets,
 		title: "Hose reel B-02",
-		fault: "Nozzle seized",
+		fault: "Signage missing",
 		meta: "Fix within 30 days",
 		photos: 1,
-		severity: "minor",
+		severity: "non-critical",
 	},
 ] as const;
 
@@ -68,6 +72,20 @@ const tabs = [
 ] as const;
 
 const PhoneMockup = () => {
+	const listRef = useRef<HTMLDivElement>(null);
+	const drag = useRef<{ startY: number; startScrollTop: number } | null>(null);
+
+	// Touch scrolls natively; this adds phone-style drag scrolling for mouse users.
+	const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+		if (e.pointerType !== "mouse" || !listRef.current) return;
+		drag.current = { startY: e.clientY, startScrollTop: listRef.current.scrollTop };
+	};
+
+	const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+		if (!drag.current || !listRef.current) return;
+		listRef.current.scrollTop = drag.current.startScrollTop - (e.clientY - drag.current.startY);
+	};
+
 	return (
 		<div className="relative w-[270px] rounded-[2.5rem] border-[6px] border-stone-900 bg-stone-900 shadow-2xl">
 			<div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-stone-900"></div>
@@ -91,7 +109,7 @@ const PhoneMockup = () => {
 							<p className="text-[12px] font-bold leading-tight tracking-tight text-stone-900">Fire Protection Co.</p>
 							<p className="mt-px flex items-center gap-1 text-[10px] leading-tight text-stone-500">
 								<span className="h-1 w-1 rounded-full bg-emerald-500"></span>
-								Six-monthly round · in progress
+								Synced 4 min ago
 							</p>
 						</div>
 					</div>
@@ -104,26 +122,37 @@ const PhoneMockup = () => {
 					</div>
 				</div>
 
-				{/* Site progress card */}
-				<button type="button" className="mx-4 mt-3 cursor-pointer rounded-xl bg-white p-3 text-left shadow-sm ring-1 ring-stone-900/5 transition hover:ring-stone-900/10 active:scale-[0.98]">
-					<div className="flex items-center justify-between">
-						<p className="text-[11px] font-bold tracking-tight text-stone-900">Distribution centre</p>
-						<p className="flex items-center gap-0.5 text-[10px] font-medium text-stone-500">
-							<MapPin className="h-2.5 w-2.5" strokeWidth={2} />
-							Ipswich
-						</p>
-					</div>
-					<div className="mt-2.5 flex items-center gap-2">
-						<div className="h-1.5 flex-1 overflow-hidden rounded-full bg-stone-100 ring-1 ring-inset ring-stone-900/5">
-							<div className="h-full w-[67%] rounded-full bg-red-700"></div>
+				{/* Scrollable screen: site progress card + defect list */}
+				<div
+					ref={listRef}
+					onPointerDown={onPointerDown}
+					onPointerMove={onPointerMove}
+					onPointerUp={() => (drag.current = null)}
+					onPointerLeave={() => (drag.current = null)}
+					className="no-scrollbar flex-1 select-none space-y-1.5 overflow-y-auto overscroll-contain px-4 pb-3 pt-3"
+				>
+					{/* Site progress card */}
+					<div className="w-full rounded-xl bg-white p-3 text-left shadow-sm ring-1 ring-stone-900/5">
+						<div className="flex items-center justify-between">
+							<p className="text-[11px] font-bold tracking-tight text-stone-900">Distribution centre</p>
+							<p className="flex items-center gap-0.5 text-[10px] font-medium text-stone-500">
+								<MapPin className="h-2.5 w-2.5" strokeWidth={2} />
+								Ipswich
+							</p>
 						</div>
-						<p className="text-[10px] font-bold tabular-nums text-stone-900">67%</p>
+						<div className="mt-2.5 flex items-center gap-2">
+							<div className="h-1.5 flex-1 overflow-hidden rounded-full bg-stone-100 ring-1 ring-inset ring-stone-900/5">
+								<div className="h-full w-[67%] rounded-full bg-red-700"></div>
+							</div>
+							<p className="text-[10px] font-bold tabular-nums text-stone-900">67%</p>
+						</div>
+						<p className="mt-1.5 text-[10px] font-medium tabular-nums text-stone-500">112 of 168 assets tested · 3 defects flagged</p>
+						<button type="button" className="mt-2.5 flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-red-700 py-2 text-[10px] font-bold text-white shadow-sm transition hover:bg-red-800 active:scale-[0.98]">
+							<QrCode className="h-3 w-3" strokeWidth={2.5} />
+							Scan next asset
+						</button>
 					</div>
-					<p className="mt-1.5 text-[10px] font-medium tabular-nums text-stone-500">112 of 168 assets tested · 3 defects flagged</p>
-				</button>
 
-				{/* Defect list */}
-				<div className="no-scrollbar mt-1.5 flex-1 space-y-1.5 overflow-y-auto overscroll-contain px-4 pb-3">
 					<div className="flex items-baseline justify-between pb-px pt-2">
 						<p className="text-[10px] font-bold uppercase tracking-wider text-stone-500">Flagged this round</p>
 						<button type="button" className="cursor-pointer text-[10px] font-semibold text-red-700 transition hover:text-red-800 active:opacity-60">View all</button>
@@ -140,8 +169,8 @@ const PhoneMockup = () => {
 										{defect.severity}
 									</span>
 								</div>
-								<p className="mt-0.5 flex items-center justify-between gap-2 text-[10px] text-stone-500">
-									<span className="truncate">{defect.fault} · {defect.meta}</span>
+								<p className="mt-0.5 flex items-start justify-between gap-2 text-[10px] text-stone-500">
+									<span className="min-w-0 flex-1 leading-snug">{defect.fault} · {defect.meta}</span>
 									<span className="flex flex-none items-center gap-0.5 tabular-nums">
 										<Camera className="h-2.5 w-2.5" strokeWidth={2} />
 										{defect.photos}
