@@ -19,3 +19,11 @@ details > summary::-webkit-details-marker {
 details[open] .faq-chevron {
 	transform: rotate(180deg);
 }
+
+.no-scrollbar {
+	scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}

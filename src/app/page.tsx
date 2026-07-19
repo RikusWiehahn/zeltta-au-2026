@@ -1,5 +1,6 @@
 import Image from "next/image";
 import EmailReveal from "./EmailReveal";
+import PhoneMockup from "./PhoneMockup";
 
 /*
 	TO ADD ONCE AVAILABLE:
@@ -98,72 +99,9 @@ const Page = () => {
 							</p>
 						</div>
 
-						{/* Phone mockup + hero testimonial */}
+						{/* Phone mockup */}
 						<div className="flex flex-col items-center gap-8">
-							<div className="relative w-[270px] rounded-[2.5rem] border-[6px] border-stone-900 bg-stone-900 shadow-2xl">
-								<div className="absolute left-1/2 top-2 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-stone-900"></div>
-								{/* White-label dashboard mockup with deliberately plain demo data (Fire Protection Co.): an AS 1851 testing round
-								    with defect flags and an auto-generated compliance report — the kind of deliverable off-the-shelf apps can't do. */}
-								<div className="flex h-[540px] flex-col overflow-hidden rounded-[2.1rem] bg-stone-100 pt-7">
-									<div className="flex items-center justify-between bg-white px-4 pb-3 pt-2">
-										<div className="flex items-center gap-2">
-											<div className="flex h-8 w-8 items-center justify-center rounded-lg bg-red-700 text-[11px] font-extrabold text-white">FP</div>
-											<div>
-												<p className="text-[12px] font-bold leading-tight text-stone-900">Fire Protection Co.</p>
-												<p className="text-[10px] leading-tight text-stone-500">Six-monthly test round · in progress</p>
-											</div>
-										</div>
-										<div className="flex h-7 w-7 items-center justify-center rounded-full bg-stone-100 text-[10px] font-bold text-stone-600">MJ</div>
-									</div>
-									<div className="mx-4 mt-3 rounded-lg bg-white p-3">
-										<div className="flex items-center justify-between">
-											<p className="text-[11px] font-bold text-stone-900">Distribution centre</p>
-											<p className="text-[10px] text-stone-500">Ipswich</p>
-										</div>
-										<div className="mt-2 h-1.5 w-full rounded-full bg-stone-200">
-											<div className="h-1.5 w-[67%] rounded-full bg-red-700"></div>
-										</div>
-										<p className="mt-1.5 text-[10px] font-medium text-stone-500">112 of 168 assets tested · 3 defects flagged</p>
-									</div>
-									<p className="px-4 pb-1.5 pt-3 text-[10px] font-bold uppercase tracking-wide text-stone-500">Flagged this round</p>
-									<div className="flex-1 space-y-2 overflow-hidden px-4">
-										<div className="rounded-lg bg-white p-2.5">
-											<div className="flex items-center justify-between">
-												<p className="text-[11px] font-bold text-stone-900">Extinguisher L2-04 · Low pressure</p>
-												<span className="rounded-full bg-red-100 px-1.5 py-0.5 text-[8px] font-bold text-red-700">CRITICAL</span>
-											</div>
-											<p className="mt-0.5 text-[10px] text-stone-500">Replace now · 2 photos · AS 1851</p>
-										</div>
-										<div className="rounded-lg bg-white p-2.5">
-											<div className="flex items-center justify-between">
-												<p className="text-[11px] font-bold text-stone-900">Exit light G-11 · Battery failed</p>
-												<span className="rounded-full bg-red-100 px-1.5 py-0.5 text-[8px] font-bold text-red-700">CRITICAL</span>
-											</div>
-											<p className="mt-0.5 text-[10px] text-stone-500">90-min discharge test · 1 photo</p>
-										</div>
-										<div className="rounded-lg bg-white p-2.5">
-											<div className="flex items-center justify-between">
-												<p className="text-[11px] font-bold text-stone-900">Hose reel B-02 · Nozzle seized</p>
-												<span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[8px] font-bold text-amber-700">MINOR</span>
-											</div>
-											<p className="mt-0.5 text-[10px] text-stone-500">Fix within 30 days · 1 photo</p>
-										</div>
-										<div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-2.5">
-											<div className="flex items-center justify-between">
-												<p className="text-[11px] font-bold text-emerald-800">Compliance report</p>
-												<span className="rounded-md bg-emerald-600 px-2 py-0.5 text-[8px] font-bold text-white">PREVIEW PDF</span>
-											</div>
-											<p className="mt-0.5 text-[10px] text-emerald-700">Generated when the round closes, with a quote for the three defects.</p>
-										</div>
-									</div>
-									<div className="grid grid-cols-4 border-t border-stone-200 bg-white px-2 py-2.5">
-										<p className="text-center text-[9px] font-medium text-stone-400">Sites</p>
-										<p className="text-center text-[9px] font-bold text-red-700">Rounds</p>
-										<p className="text-center text-[9px] font-medium text-stone-400">Assets</p>
-										<p className="text-center text-[9px] font-medium text-stone-400">Reports</p>
-									</div>
-								</div>
-							</div>
+							<PhoneMockup />
 							<p className="-mt-3 text-center text-xs text-stone-500">Example</p>
 						</div>
 					</div>
