@@ -377,7 +377,7 @@ const Page = () => {
 				<section className="border-y border-stone-200 bg-white">
 					<div className="mx-auto max-w-3xl px-5 py-16 sm:py-20">
 						<div className="flex flex-col items-start gap-6 sm:flex-row sm:gap-8">
-							<Image src="/assets/team-rikus-wiehahn.png" alt="Rikus Wiehahn" width={580} height={553} className="h-24 w-24 flex-none rounded-full object-cover" />
+							<Image src="/assets/team-rikus-wiehahn-avatar.webp" alt="Rikus Wiehahn" width={764} height={764} className="h-24 w-24 flex-none rounded-full object-cover" />
 							<div>
 								<h2 className="text-2xl font-bold tracking-tight text-stone-900">A note from the person who&rsquo;ll actually build it</h2>
 								<div className="mt-5 space-y-4 text-base leading-relaxed text-stone-700">
